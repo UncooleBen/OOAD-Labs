@@ -14,6 +14,8 @@ public interface Ant {
 
 	public void setLocation(int location);
 
+	public void setDirection(Direction direction);
+
 	public Direction getDirection();
 
 	public void changeDirection();

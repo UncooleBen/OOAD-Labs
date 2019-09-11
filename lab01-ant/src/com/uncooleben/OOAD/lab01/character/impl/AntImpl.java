@@ -54,6 +54,11 @@ public class AntImpl implements Ant {
 	}
 
 	@Override
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
+
+	@Override
 	public void changeDirection() {
 		if (this.direction.equals(Direction.LEFT)) {
 			this.direction = Direction.RIGHT;

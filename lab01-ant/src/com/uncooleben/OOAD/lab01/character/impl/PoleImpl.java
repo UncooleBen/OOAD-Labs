@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.uncooleben.OOAD.lab01.character.Ant;
 import com.uncooleben.OOAD.lab01.character.Pole;
+import com.uncooleben.OOAD.lab01.util.Direction;
 
 public class PoleImpl implements Pole {
 
@@ -16,6 +17,19 @@ public class PoleImpl implements Pole {
 		this.size = size;
 		this.ants = new ArrayList<Ant>(ants);
 		this.aliveNumber = this.ants.size();
+	}
+
+	@Override
+	public void moveByTime(long time) {
+		for (Ant ant : this.ants) {
+			if (ant.isAlive()) {
+				if (ant.getDirection().equals(Direction.LEFT)) {
+					ant.setLocation((int) (ant.getLocation() - ant.getSpeed() * time));
+				} else {
+					ant.setLocation((int) (ant.getLocation() + ant.getSpeed() * time));
+				}
+			}
+		}
 	}
 
 	@Override
@@ -37,12 +51,15 @@ public class PoleImpl implements Pole {
 				if (firstAntAtLocation == null) {
 					firstAntAtLocation = ant;
 				} else {
+					System.out.println(">>" + ant.getName() + " collides at location " + ant.getLocation());
 					ant.changeDirection();
 					isCollided = true;
 				}
 			}
 		}
 		if (isCollided) {
+			System.out.println(
+					">>" + firstAntAtLocation.getName() + " collides at location " + firstAntAtLocation.getLocation());
 			firstAntAtLocation.changeDirection();
 		}
 	}
@@ -50,6 +67,7 @@ public class PoleImpl implements Pole {
 	private void performAliveCheck(Ant ant) {
 		if (ant.isAlive()) {
 			if (ant.getLocation() < 0 || ant.getLocation() >= size) {
+				System.out.println(">>" + ant.getName() + " killed at location" + ant.getLocation());
 				ant.kill();
 				this.aliveNumber--;
 			}
@@ -59,6 +77,29 @@ public class PoleImpl implements Pole {
 	@Override
 	public int getAliveNumber() {
 		return this.aliveNumber;
+	}
+
+	@Override
+	public List<Ant> getAnts() {
+		return this.ants;
+	}
+
+	@Override
+	public int getSize() {
+		return this.size;
+	}
+
+	@Override
+	public void setAntsDirection(int bits) {
+		for (int antIndex = 0; antIndex < this.ants.size(); ++antIndex) {
+			Ant ant = ants.get(antIndex);
+			int lastBit = (bits >> antIndex) % 2;
+			if (lastBit == 0) {
+				ant.setDirection(Direction.LEFT);
+			} else {
+				ant.setDirection(Direction.RIGHT);
+			}
+		}
 	}
 
 }

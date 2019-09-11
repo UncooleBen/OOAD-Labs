@@ -1,9 +1,11 @@
-<ClimbingGame timeGap="10">
-	<Pole size="300">
-		<Ant name="ant1" speed="5" location="30" />
-		<Ant name="ant2" speed="5" location="80" />
-		<Ant name="ant3" speed="5" location="110" />
-		<Ant name="ant4" speed="5" location="160" />
-		<Ant name="ant5" speed="5" location="250" />
+<?xml version = "1.0"?>
+
+<ClimbingGame timeGap="20">
+	<Pole size="150">
+		<Ant name="1" speed="5" location="15" />
+		<Ant name="2" speed="5" location="40" />
+		<Ant name="3" speed="5" location="55" />
+		<Ant name="4" speed="5" location="80" />
+		<Ant name="5" speed="5" location="125" />
 	</Pole>
 </ClimbingGame>
