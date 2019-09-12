@@ -12,7 +12,7 @@ public interface Pole {
 
 	public List<Ant> getAnts();
 
-	public int getSize();
+	public double getSize();
 
 	public void setAntsDirection(int bits);
 

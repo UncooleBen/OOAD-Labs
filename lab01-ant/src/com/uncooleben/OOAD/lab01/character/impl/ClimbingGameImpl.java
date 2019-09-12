@@ -1,7 +1,6 @@
 package com.uncooleben.OOAD.lab01.character.impl;
 
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 import com.uncooleben.OOAD.lab01.character.Ant;
 import com.uncooleben.OOAD.lab01.character.ClimbingGame;
@@ -22,19 +21,17 @@ public class ClimbingGameImpl implements ClimbingGame {
 	@Override
 	public void startGame() {
 		System.out.println("Climbing Game Started");
-		int safe = 0;
 		while (!isGameOver()) {
-			System.out.println("Current Time: " + this.time);
-			printAnts();
-			try {
-				TimeUnit.MILLISECONDS.sleep(timeGap);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			// System.out.println("Current Time: " + this.time);
+			if (time % 200 == 0) {
+				printAnts();
 			}
+//			try {
+//				TimeUnit.MILLISECONDS.sleep(timeGap);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
 			timeElapse();
-			if (safe++ > 100) {
-				break;
-			}
 		}
 		System.out.println("Climbing Ended At Time: " + this.time + "\n--------------------------");
 	}
@@ -64,7 +61,9 @@ public class ClimbingGameImpl implements ClimbingGame {
 	private void printAnts() {
 		HashMap<Integer, Integer> locationToAnt = new HashMap<Integer, Integer>();
 		for (Ant ant : this.pole.getAnts()) {
-			locationToAnt.put(ant.getLocation(), Integer.parseInt(ant.getName()));
+			if (ant.isAlive()) {
+				locationToAnt.put((int) Math.round(ant.getLocation()), Integer.parseInt(ant.getName()));
+			}
 		}
 		StringBuffer sb = new StringBuffer("");
 		for (int index = 0; index < this.pole.getSize(); ++index) {

@@ -8,7 +8,7 @@ import com.uncooleben.OOAD.lab01.character.impl.PoleImpl;
 
 public class PoleFactory {
 
-	public static Pole createPole(int size, List<Ant> ants) {
+	public static Pole createPole(double size, List<Ant> ants) {
 		return new PoleImpl(size, ants);
 	}
 }

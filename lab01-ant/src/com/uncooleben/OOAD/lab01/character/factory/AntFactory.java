@@ -6,7 +6,7 @@ import com.uncooleben.OOAD.lab01.util.Direction;
 
 public class AntFactory {
 
-	public static Ant createAnt(String name, int speed, Direction direction, int location) {
+	public static Ant createAnt(String name, double speed, Direction direction, double location) {
 		return new AntImpl(name, speed, direction, location);
 	}
 

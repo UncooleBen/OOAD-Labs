@@ -9,12 +9,12 @@ public class AntImpl implements Ant {
 
 	private UUID uuid;
 	private String name;
-	private int speed;
-	private int location;
+	private double speed;
+	private double location;
 	private Direction direction;
 	private boolean isAlive;
 
-	public AntImpl(String name, int speed, Direction direction, int location) {
+	public AntImpl(String name, double speed, Direction direction, double location) {
 		this.uuid = UUID.randomUUID();
 		this.name = name;
 		this.speed = speed;
@@ -29,7 +29,7 @@ public class AntImpl implements Ant {
 	}
 
 	@Override
-	public int getSpeed() {
+	public double getSpeed() {
 		return this.speed;
 	}
 
@@ -44,12 +44,12 @@ public class AntImpl implements Ant {
 	}
 
 	@Override
-	public int getLocation() {
+	public double getLocation() {
 		return this.location;
 	}
 
 	@Override
-	public void setLocation(int location) {
+	public void setLocation(double location) {
 		this.location = location;
 	}
 

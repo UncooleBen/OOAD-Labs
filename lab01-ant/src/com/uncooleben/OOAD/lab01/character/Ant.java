@@ -8,11 +8,11 @@ public interface Ant {
 
 	public String getName();
 
-	public int getSpeed();
+	public double getSpeed();
 
-	public int getLocation();
+	public double getLocation();
 
-	public void setLocation(int location);
+	public void setLocation(double location);
 
 	public void setDirection(Direction direction);
 

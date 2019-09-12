@@ -50,13 +50,13 @@ public class GameConfigParser {
 			String antLocation = antNode.getAttributes().getNamedItem("location").getNodeValue();
 			String antSpeed = antNode.getAttributes().getNamedItem("speed").getNodeValue();
 			String antName = antNode.getAttributes().getNamedItem("name").getNodeValue();
-			ants.add(AntFactory.createAnt(antName, Integer.parseInt(antSpeed), Direction.LEFT,
-					Integer.parseInt(antLocation)));
+			ants.add(AntFactory.createAnt(antName, Double.parseDouble(antSpeed), Direction.LEFT,
+					Double.parseDouble(antLocation)));
 		}
 	}
 
 	private static void constructPole(Node poleNode) {
-		int size = Integer.parseInt(poleNode.getAttributes().getNamedItem("size").getNodeValue());
+		double size = Double.parseDouble(poleNode.getAttributes().getNamedItem("size").getNodeValue());
 		pole = PoleFactory.createPole(size, ants);
 	}
 
