@@ -9,12 +9,30 @@ import com.uncooleben.OOAD.lab01.character.Ant;
 import com.uncooleben.OOAD.lab01.character.Pole;
 import com.uncooleben.OOAD.lab01.util.Direction;
 
+/**
+ * An implementation class which implements the Pole interface.
+ * <p>
+ * 
+ * This is a part of OOAD-Lab01 project.
+ * 
+ * @author Juntao Peng
+ * 
+ */
 public class PoleImpl implements Pole {
 
 	private double size;
 	private List<Ant> ants;
 	private int aliveNumber;
 
+	/**
+	 * Constructs an PoleImpl object according to the given parameters.
+	 * <p>
+	 * This constructor should not be called explicitly. Use PoleFactory class's
+	 * static method 'create' instead.
+	 * 
+	 * @param size A double variable indicating the size of the pole
+	 * @param ants A java.util.List object containing the ants on the pole
+	 */
 	public PoleImpl(double size, List<Ant> ants) {
 		this.size = size;
 		this.ants = new ArrayList<Ant>(ants);
@@ -60,6 +78,14 @@ public class PoleImpl implements Pole {
 
 	}
 
+	/**
+	 * Performs a collision check for a chosen ant and all the other ants alive.
+	 * 
+	 * @param ant       An Ant object of the chosen ant
+	 * @param needCheck A java.util.Map object from Ant to Boolean. The boolean
+	 *                  indicates whether the key (ant) needs to be checked. Only
+	 *                  when the ant is alive is the ant needed to be checked
+	 */
 	private void performCollisionCheck(Ant ant, Map<Ant, Boolean> needCheck) {
 		boolean targetAntCollided = false;
 		for (Ant otherAnt : needCheck.keySet()) {
@@ -78,10 +104,26 @@ public class PoleImpl implements Pole {
 		}
 	}
 
+	/**
+	 * Indicates whether the two given ants in the parameter is collided.
+	 * 
+	 * @param ant1 The 1st Ant object needs to be checked
+	 * @param ant2 The 2nd Ant object needs to be checked
+	 * 
+	 * @return A boolean variable indicating whether the two given ants are collided
+	 */
 	private boolean isCollided(Ant ant1, Ant ant2) {
+		// TODO Change the 0.2 below to a value related to the given ant's speed and the
+		// game's timeGap.
 		return Math.abs(ant1.getLocation() - ant2.getLocation()) < 0.2;
 	}
 
+	/**
+	 * Performs a alive check for a chosen ant. If it is out of the pole bound, it
+	 * should be killed.
+	 * 
+	 * @param ant An Ant object of the chosen ant
+	 */
 	private void performAliveCheck(Ant ant) {
 		if (ant.isAlive()) {
 			if (isOutOfBound(ant)) {
@@ -92,6 +134,13 @@ public class PoleImpl implements Pole {
 		}
 	}
 
+	/**
+	 * Indicates whether the two given ants in the parameter is collided.
+	 * 
+	 * @param ant The 1st Ant object needs to be checked
+	 * 
+	 * @return A boolean variable indicating whether the ant is out of the bound
+	 */
 	private boolean isOutOfBound(Ant ant) {
 		return Math.abs(ant.getLocation()) < 0.1 || Math.abs(ant.getLocation() - this.size) < 0.1;
 	}

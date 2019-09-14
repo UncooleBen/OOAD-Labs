@@ -6,12 +6,31 @@ import com.uncooleben.OOAD.lab01.character.Ant;
 import com.uncooleben.OOAD.lab01.character.ClimbingGame;
 import com.uncooleben.OOAD.lab01.character.Pole;
 
+/**
+ * An implementation class which implements the ClimbingGame interface.
+ * <p>
+ * 
+ * This is a part of OOAD-Lab01 project.
+ * 
+ * @author Juntao Peng
+ * 
+ */
 public class ClimbingGameImpl implements ClimbingGame {
 
 	private Pole pole;
 	private long time;
 	private long timeGap;
 
+	/**
+	 * Constructs an ClimbingGameImpl object according to the given parameters.
+	 * <p>
+	 * This constructor should not be called explicitly. Use ClimbingGameFactory
+	 * class's static method 'create' instead.
+	 * 
+	 * @param pole    A Pole object owned by the game
+	 * @param timeGap A long integer indicating the time gap (in milliseconds) to
+	 *                refresh/update the game status
+	 */
 	public ClimbingGameImpl(Pole pole, long timeGap) {
 		this.pole = pole;
 		this.time = 0L;
@@ -58,6 +77,9 @@ public class ClimbingGameImpl implements ClimbingGame {
 		return this.pole;
 	}
 
+	/**
+	 * Prints the current game status in command line
+	 */
 	private void printAnts() {
 		HashMap<Integer, Integer> locationToAnt = new HashMap<Integer, Integer>();
 		for (Ant ant : this.pole.getAnts()) {
@@ -75,5 +97,7 @@ public class ClimbingGameImpl implements ClimbingGame {
 		}
 		System.out.println(sb.toString());
 	}
+
+	// TODO Add a method/class for Graphic User Interface here.
 
 }
