@@ -3,10 +3,15 @@ package com.uncooleben.OOAD.lab01.gui;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.util.ArrayList;
 
 
 public class AntGameFrame extends JFrame
 {
+    private ArrayList<JTextField> antPos=new ArrayList<>();
+    private JTextField poleLen=new JTextField(10);
+    private JLabel time=new JLabel();
+    private JLabel killed=new JLabel();
     public AntGameFrame()
     {
         JPanel buttonPanel=new JPanel();
@@ -25,27 +30,52 @@ public class AntGameFrame extends JFrame
         buttonPanel.add(new JButton("Reset"));
         buttonPanel.add(new JButton("Exit"));
         //format info panel
+        antPos.add(new JTextField(10));
+        antPos.add(new JTextField(10));
+        antPos.add(new JTextField(10));
+        antPos.add(new JTextField(10));
+        antPos.add(new JTextField(10));
         //set layout
         GridBagLayout layout=new GridBagLayout();
         infoPanel.setLayout(layout);
         GridBagConstraints constraints=new GridBagConstraints();
         constraints.weightx=100;
         constraints.weighty=100;
-
-        constraints.gridx=0;
         constraints.gridy=0;
-
-        constraints.ipadx=20;
-        constraints.ipady=10;
-        infoPanel.add(new JLabel("A1"),constraints);
-        constraints.gridx=0;
+        for(constraints.gridx=0;constraints.gridx<5;constraints.gridx++)
+        {
+            JPanel tempPanel=new JPanel();
+            tempPanel.add(new JLabel("Ant"+constraints.gridx+":",JLabel.RIGHT));
+            tempPanel.add(antPos.get(constraints.gridx));
+            infoPanel.add(tempPanel,constraints);
+        }
         constraints.gridy=1;
-        infoPanel.add(new JLabel("A2"),constraints);
-
+        constraints.gridx=0;
+        {
+            JPanel tempPanel=new JPanel();
+            tempPanel.add(new JLabel("PoleLength:",JLabel.RIGHT));
+            tempPanel.add(poleLen);
+            infoPanel.add(tempPanel,constraints);
+        }
+        constraints.gridx=1;
+        {
+            JPanel tempPanel=new JPanel();
+            tempPanel.add(new JLabel("Time:",JLabel.RIGHT));
+            tempPanel.add(time);
+            infoPanel.add(tempPanel,constraints);
+        }
+        constraints.gridx=2;
+        {
+            JPanel tempPanel=new JPanel();
+            tempPanel.add(new JLabel("Killed:",JLabel.RIGHT));
+            tempPanel.add(killed);
+            infoPanel.add(tempPanel,constraints);
+        }
+        //format draw panel
 
         add(infoPanel, BorderLayout.NORTH);
+        add(new DrawComponent(),BorderLayout.CENTER);
         add(buttonPanel,BorderLayout.SOUTH);
-
 
 
     }
