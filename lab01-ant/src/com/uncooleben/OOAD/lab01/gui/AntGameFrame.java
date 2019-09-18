@@ -83,35 +83,35 @@ public class AntGameFrame extends JFrame implements Runnable {
 		constraints.gridx = 0;
 		{
 			JPanel tempPanel = new JPanel();
-			tempPanel.add(new JLabel("PoleLength:", JLabel.RIGHT));
+			tempPanel.add(new JLabel("PoleLength(cm):", JLabel.RIGHT));
 			tempPanel.add(poleLen);
 			infoPanel.add(tempPanel, constraints);
 		}
 		constraints.gridx = 1;
 		{
 			JPanel tempPanel = new JPanel();
-			tempPanel.add(new JLabel("Longest time:", JLabel.RIGHT));
+			tempPanel.add(new JLabel("Longest time(ms):", JLabel.RIGHT));
 			tempPanel.add(longestField);
 			infoPanel.add(tempPanel, constraints);
 		}
 		constraints.gridx = 2;
 		{
 			JPanel tempPanel = new JPanel();
-			tempPanel.add(new JLabel("Shortest time:", JLabel.RIGHT));
+			tempPanel.add(new JLabel("Shortest time(ms):", JLabel.RIGHT));
 			tempPanel.add(shortestField);
 			infoPanel.add(tempPanel, constraints);
 		}
 		constraints.gridx = 3;
 		{
 			JPanel tempPanel = new JPanel();
-			tempPanel.add(new JLabel("Time gap:", JLabel.RIGHT));
+			tempPanel.add(new JLabel("Time gap(ms):", JLabel.RIGHT));
 			tempPanel.add(timeGap);
 			infoPanel.add(tempPanel, constraints);
 		}
 		constraints.gridx = 4;
 		{
 			JPanel tempPanel = new JPanel();
-			tempPanel.add(new JLabel("Speed:", JLabel.RIGHT));
+			tempPanel.add(new JLabel("Speed(cm/s):", JLabel.RIGHT));
 			tempPanel.add(speed);
 			infoPanel.add(tempPanel, constraints);
 		}
@@ -137,7 +137,7 @@ public class AntGameFrame extends JFrame implements Runnable {
 						new double[] { moveSpeed, moveSpeed, moveSpeed, moveSpeed, moveSpeed }, frame);
 				gameBatch = new GameBatch(gameConfig, frame);
 				gameBatch.initializeGame();
-				timeGap.setText("1");
+				timeGap.setText(String.valueOf(interval));
 				for(JTextField antText: antTexts)
 				{
 					antText.setEditable(false);
