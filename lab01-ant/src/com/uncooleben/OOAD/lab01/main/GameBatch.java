@@ -1,6 +1,5 @@
 package com.uncooleben.OOAD.lab01.main;
 
-import java.io.File;
 import java.util.List;
 
 import com.uncooleben.OOAD.lab01.character.Ant;
@@ -19,25 +18,11 @@ import com.uncooleben.OOAD.lab01.util.GameConfigParser;
  */
 public class GameBatch {
 
+	public static String CONFIG_VIA_GUI = "CONFIG_VIA_GUI";
+	public static String CONFIG_VIA_FILE = "CONFIG_VIA_FILE";
 	private List<Ant> ants;
 	private ClimbingGame climbingGame;
-	private File gameConfig;
-
-	/**
-	 * Constructs a GameBatch object used for multiple game cases.
-	 * 
-	 * @param gameConfig A java.io.File object created by open gameConfig.xml on
-	 *                   local disk
-	 */
-	public GameBatch(File gameConfig) {
-		try {
-			this.gameConfig = gameConfig;
-			this.climbingGame = GameConfigParser.parse(gameConfig);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		this.ants = this.climbingGame.getPole().getAnts();
-	}
+	private boolean configured;
 
 	/**
 	 * Prints the ants' direction at the very beginning of the climbing game
@@ -62,7 +47,7 @@ public class GameBatch {
 		long longest = Long.MIN_VALUE;
 		while (total > 0) {
 			initializeGame();
-			this.climbingGame.getPole().setAntsDirection(bits);
+			this.climbingGame.setAntsDirection(bits);
 			printAntsDirection();
 			this.climbingGame.startGame();
 			if (this.climbingGame.getTime() > longest) {
@@ -92,12 +77,17 @@ public class GameBatch {
 	 * Initializes the game by setting the attribute values according to the
 	 * gameConfig.xml.
 	 */
-	private void initializeGame() {
-		try {
-			this.climbingGame = GameConfigParser.parse(gameConfig);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+	private void initializeGame(String CONFIG_METHOD) {
+		if (CONFIG_METHOD.equals(GameBatch.CONFIG_VIA_FILE)) {
+			try {
+				this.climbingGame = GameConfigParser.parse(gameConfig);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		} else if (CONFIG_METHOD.equals(GameBatch.CONFIG_VIA_GUI)) {
+
 		}
+
 	}
 
 }

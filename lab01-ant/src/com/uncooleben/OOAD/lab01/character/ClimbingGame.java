@@ -42,4 +42,17 @@ public interface ClimbingGame {
 	 */
 	public Pole getPole();
 
+	/**
+	 * Configures the start direction of all ants according to a bit string.
+	 * <p>
+	 * Example
+	 * <p>
+	 * If there are 5 ants in the pole, bits = 20(Dec) = 10100(Bin) will set the
+	 * ants' direction as 'Right, Left, Right, Left, Left'.
+	 * 
+	 * @param bits An integer that can be converted to direction configuration. (0
+	 *             <= bits <= ((1<<numOfAnts)-1))
+	 */
+	public void setAntsDirection(int bits);
+
 }

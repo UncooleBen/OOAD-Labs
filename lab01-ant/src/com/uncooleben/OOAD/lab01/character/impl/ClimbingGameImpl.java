@@ -98,6 +98,10 @@ public class ClimbingGameImpl implements ClimbingGame {
 		System.out.println(sb.toString());
 	}
 
-	// TODO Add a method/class for Graphic User Interface here.
+	@Override
+	public void setAntsDirection(int bits) {
+		this.pole.setAntsDirection(bits);
+
+	}
 
 }

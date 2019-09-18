@@ -34,7 +34,7 @@ import com.uncooleben.OOAD.lab01.character.factory.PoleFactory;
  * 
  * @author Juntao Peng
  */
-public class GameConfigParser {
+public class GameConfig {
 
 	private static List<Ant> ants;
 	private static Pole pole;
