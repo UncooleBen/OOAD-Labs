@@ -1,11 +1,9 @@
 package com.uncooleben.OOAD.lab01.main;
 
-import java.util.List;
-
 import com.uncooleben.OOAD.lab01.character.Ant;
 import com.uncooleben.OOAD.lab01.character.ClimbingGame;
 import com.uncooleben.OOAD.lab01.util.Direction;
-import com.uncooleben.OOAD.lab01.util.GameConfigParser;
+import com.uncooleben.OOAD.lab01.util.GameConfig;
 
 /**
  * The class is used to perform multiple cases of climbing game. Especially
@@ -18,13 +16,14 @@ import com.uncooleben.OOAD.lab01.util.GameConfigParser;
  */
 public class GameBatch {
 
-	public static String CONFIG_VIA_GUI = "CONFIG_VIA_GUI";
-	public static String CONFIG_VIA_FILE = "CONFIG_VIA_FILE";
-	private List<Ant> ants;
 	private ClimbingGame climbingGame;
-	private boolean configured;
+	private GameConfig gameConfig;
 
-	/**
+	public GameBatch(GameConfig gameConfig) {
+		this.gameConfig = gameConfig;
+	}
+
+	/*
 	 * Prints the ants' direction at the very beginning of the climbing game
 	 */
 	private void printAntsDirection() {
@@ -41,12 +40,12 @@ public class GameBatch {
 	 * Starts the game batch with initial bits 0 to end bits 1<<sizeOfAntsList.
 	 */
 	public void startGameBatch() {
-		int total = 1 << this.ants.size();
+		initializeGame();
+		int total = 1 << this.climbingGame.getPole().getAnts().size();
 		int bits = 0;
 		long shortest = Long.MAX_VALUE;
 		long longest = Long.MIN_VALUE;
 		while (total > 0) {
-			initializeGame();
 			this.climbingGame.setAntsDirection(bits);
 			printAntsDirection();
 			this.climbingGame.startGame();
@@ -58,6 +57,7 @@ public class GameBatch {
 			}
 			bits++;
 			total--;
+			initializeGame();
 		}
 		System.out.println("Shortest time " + shortest);
 		System.out.println("Longest time " + longest);
@@ -77,17 +77,8 @@ public class GameBatch {
 	 * Initializes the game by setting the attribute values according to the
 	 * gameConfig.xml.
 	 */
-	private void initializeGame(String CONFIG_METHOD) {
-		if (CONFIG_METHOD.equals(GameBatch.CONFIG_VIA_FILE)) {
-			try {
-				this.climbingGame = GameConfigParser.parse(gameConfig);
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		} else if (CONFIG_METHOD.equals(GameBatch.CONFIG_VIA_GUI)) {
-
-		}
-
+	private void initializeGame() {
+		this.climbingGame = this.gameConfig.getGame();
 	}
 
 }

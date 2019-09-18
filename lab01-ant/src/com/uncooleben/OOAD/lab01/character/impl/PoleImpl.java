@@ -37,6 +37,7 @@ public class PoleImpl implements Pole {
 		this.size = size;
 		this.ants = new ArrayList<Ant>(ants);
 		this.aliveNumber = this.ants.size();
+		System.out.println(this.ants.size());
 	}
 
 	@Override
