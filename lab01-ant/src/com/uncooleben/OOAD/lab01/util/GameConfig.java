@@ -19,8 +19,9 @@ import com.uncooleben.OOAD.lab01.character.Ant;
 import com.uncooleben.OOAD.lab01.character.ClimbingGame;
 import com.uncooleben.OOAD.lab01.character.Pole;
 import com.uncooleben.OOAD.lab01.character.factory.AntFactory;
-import com.uncooleben.OOAD.lab01.character.factory.ClimbingGameFactory;
-import com.uncooleben.OOAD.lab01.character.factory.PoleFactory;
+import com.uncooleben.OOAD.lab01.character.impl.ClimbingGameImpl;
+import com.uncooleben.OOAD.lab01.character.impl.PoleImpl;
+import com.uncooleben.OOAD.lab01.gui.AntGameFrame;
 
 /**
  * The class is used to parse the game configuration from an xml file on the
@@ -36,6 +37,7 @@ import com.uncooleben.OOAD.lab01.character.factory.PoleFactory;
  */
 public class GameConfig {
 
+	private AntGameFrame frame;
 	private List<Ant> ants;
 	private Pole pole;
 	private ClimbingGame climbingGame;
@@ -47,18 +49,21 @@ public class GameConfig {
 	private double[] antSpeeds;
 	private boolean guiFlag;
 
-	public GameConfig(File file) {
+	public GameConfig(File file, AntGameFrame frame) {
 		this.guiFlag = false;
 		this.gameConfigFile = file;
+		this.frame = frame;
 	}
 
-	public GameConfig(long timeGap, double poleLength, int antNumber, double[] antLocations, double[] antSpeeds) {
+	public GameConfig(long timeGap, double poleLength, int antNumber, double[] antLocations, double[] antSpeeds,
+			AntGameFrame frame) {
 		this.guiFlag = true;
 		this.timeGap = timeGap;
 		this.poleLength = poleLength;
 		this.antNumber = antNumber;
 		this.antLocations = antLocations;
 		this.antSpeeds = antSpeeds;
+		this.frame = frame;
 	}
 
 	/**
@@ -105,7 +110,7 @@ public class GameConfig {
 	 */
 	private void constructXMLPole(Node poleNode) {
 		double size = Double.parseDouble(poleNode.getAttributes().getNamedItem("size").getNodeValue());
-		pole = PoleFactory.createPole(size, ants);
+		pole = new PoleImpl(size, ants);
 	}
 
 	/**
@@ -116,7 +121,7 @@ public class GameConfig {
 	 */
 	private void constructXMLClimbingGame(Node gameNode) {
 		int timeGap = Integer.parseInt(gameNode.getAttributes().getNamedItem("timeGap").getNodeValue());
-		climbingGame = ClimbingGameFactory.createClimbingGame(pole, timeGap);
+		climbingGame = new ClimbingGameImpl(pole, timeGap, frame);
 	}
 
 	/**
@@ -151,7 +156,7 @@ public class GameConfig {
 	 * 
 	 */
 	private void constructGUIPole(double poleLength) {
-		pole = PoleFactory.createPole(poleLength, ants);
+		pole = new PoleImpl(poleLength, ants);
 	}
 
 	/**
@@ -160,7 +165,7 @@ public class GameConfig {
 	 * @param timeGap A long integer indicating the time gap in milliseconds
 	 */
 	private void constructGUIClimbingGame(long timeGap) {
-		climbingGame = ClimbingGameFactory.createClimbingGame(pole, timeGap);
+		climbingGame = new ClimbingGameImpl(pole, timeGap, frame);
 	}
 
 	/**

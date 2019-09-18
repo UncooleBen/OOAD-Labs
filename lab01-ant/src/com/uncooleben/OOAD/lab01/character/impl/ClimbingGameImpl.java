@@ -1,10 +1,12 @@
 package com.uncooleben.OOAD.lab01.character.impl;
 
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import com.uncooleben.OOAD.lab01.character.Ant;
 import com.uncooleben.OOAD.lab01.character.ClimbingGame;
 import com.uncooleben.OOAD.lab01.character.Pole;
+import com.uncooleben.OOAD.lab01.gui.AntGameFrame;
 
 /**
  * An implementation class which implements the ClimbingGame interface.
@@ -20,6 +22,7 @@ public class ClimbingGameImpl implements ClimbingGame {
 	private Pole pole;
 	private long time;
 	private long timeGap;
+	private AntGameFrame frame;
 
 	/**
 	 * Constructs an ClimbingGameImpl object according to the given parameters.
@@ -31,10 +34,11 @@ public class ClimbingGameImpl implements ClimbingGame {
 	 * @param timeGap A long integer indicating the time gap (in milliseconds) to
 	 *                refresh/update the game status
 	 */
-	public ClimbingGameImpl(Pole pole, long timeGap) {
+	public ClimbingGameImpl(Pole pole, long timeGap, AntGameFrame frame) {
 		this.pole = pole;
 		this.time = 0L;
 		this.timeGap = timeGap;
+		this.frame = frame;
 	}
 
 	@Override
@@ -42,14 +46,17 @@ public class ClimbingGameImpl implements ClimbingGame {
 		System.out.println("Climbing Game Started");
 		while (!isGameOver()) {
 			// System.out.println("Current Time: " + this.time);
-			if (time % 200 == 0) {
-				printAnts();
-			}
-//			try {
-//				TimeUnit.MILLISECONDS.sleep(timeGap);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
+//			if (time % 200 == 0) {
+//				printAnts();
 //			}
+			frame.repaint();
+			frame.validate();
+			// System.out.println(timeGap);
+			try {
+				TimeUnit.MILLISECONDS.sleep(timeGap);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			timeElapse();
 		}
 		System.out.println("Climbing Ended At Time: " + this.time + "\n--------------------------");

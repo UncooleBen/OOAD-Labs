@@ -1,10 +1,8 @@
 package com.uncooleben.OOAD.lab01.main;
 
-import java.io.File;
-
 import javax.swing.JFrame;
 
-import com.uncooleben.OOAD.lab01.util.GameConfig;
+import com.uncooleben.OOAD.lab01.gui.AntGameFrame;
 
 public class Main extends JFrame {
 
@@ -13,17 +11,21 @@ public class Main extends JFrame {
 	 */
 	private static final long serialVersionUID = -3780756319003467280L;
 
-	public static void main(String[] args) {
-//		EventQueue.invokeLater(() -> {
-//			AntGameFrame frame = new AntGameFrame();
-//			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//			frame.setVisible(true);
-//		});
+	private static AntGameFrame frame;
+	private static GameBatch gameBatch;
 
-		File file = new File("document\\gameConfig.xml");
-		GameConfig gameConfig = new GameConfig(file);
-		GameBatch gameBatch = new GameBatch(gameConfig);
-		gameBatch.startGameBatch();
+	public static void main(String[] args) {
+		frame = new AntGameFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		synchronized (frame) {
+			try {
+				frame.wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			frame.getGameBatch().startGameBatch();
+		}
 
 	}
 

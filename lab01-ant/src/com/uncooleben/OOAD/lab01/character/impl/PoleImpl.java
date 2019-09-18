@@ -24,6 +24,10 @@ public class PoleImpl implements Pole {
 	private List<Ant> ants;
 	private int aliveNumber;
 
+	public PoleImpl() {
+
+	}
+
 	/**
 	 * Constructs an PoleImpl object according to the given parameters.
 	 * <p>

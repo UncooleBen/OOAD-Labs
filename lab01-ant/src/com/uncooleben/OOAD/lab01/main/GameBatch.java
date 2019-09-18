@@ -2,6 +2,7 @@ package com.uncooleben.OOAD.lab01.main;
 
 import com.uncooleben.OOAD.lab01.character.Ant;
 import com.uncooleben.OOAD.lab01.character.ClimbingGame;
+import com.uncooleben.OOAD.lab01.gui.AntGameFrame;
 import com.uncooleben.OOAD.lab01.util.Direction;
 import com.uncooleben.OOAD.lab01.util.GameConfig;
 
@@ -14,13 +15,29 @@ import com.uncooleben.OOAD.lab01.util.GameConfig;
  * 
  * @author Juntao Peng
  */
-public class GameBatch {
+public class GameBatch implements Runnable {
 
 	private ClimbingGame climbingGame;
 	private GameConfig gameConfig;
+	private AntGameFrame frame;
+	private long longest;
+	private long shortest;
 
-	public GameBatch(GameConfig gameConfig) {
+	public GameBatch(AntGameFrame frame) {
+		this.frame = frame;
+	}
+
+	public GameBatch(GameConfig gameConfig, AntGameFrame frame) {
 		this.gameConfig = gameConfig;
+		this.frame = frame;
+	}
+
+	public void setGameConfig(GameConfig gameConfig) {
+		this.gameConfig = gameConfig;
+	}
+
+	public ClimbingGame getGame() {
+		return this.climbingGame;
 	}
 
 	/*
@@ -40,14 +57,14 @@ public class GameBatch {
 	 * Starts the game batch with initial bits 0 to end bits 1<<sizeOfAntsList.
 	 */
 	public void startGameBatch() {
-		initializeGame();
 		int total = 1 << this.climbingGame.getPole().getAnts().size();
 		int bits = 0;
-		long shortest = Long.MAX_VALUE;
-		long longest = Long.MIN_VALUE;
+		this.shortest = Long.MAX_VALUE;
+		this.longest = Long.MIN_VALUE;
 		while (total > 0) {
 			this.climbingGame.setAntsDirection(bits);
 			printAntsDirection();
+			frame.getDrawComponent().setPole(this.climbingGame.getPole());
 			this.climbingGame.startGame();
 			if (this.climbingGame.getTime() > longest) {
 				longest = this.climbingGame.getTime();
@@ -77,8 +94,22 @@ public class GameBatch {
 	 * Initializes the game by setting the attribute values according to the
 	 * gameConfig.xml.
 	 */
-	private void initializeGame() {
+	public void initializeGame() {
 		this.climbingGame = this.gameConfig.getGame();
+	}
+
+	@Override
+	public void run() {
+		this.startGameBatch();
+
+	}
+
+	public long getLongest() {
+		return this.longest;
+	}
+
+	public long getShortest() {
+		return this.shortest;
 	}
 
 }

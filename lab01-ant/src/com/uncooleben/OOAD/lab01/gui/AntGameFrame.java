@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -13,11 +15,21 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class AntGameFrame extends JFrame {
+import com.uncooleben.OOAD.lab01.character.Ant;
+import com.uncooleben.OOAD.lab01.character.impl.PoleImpl;
+import com.uncooleben.OOAD.lab01.main.GameBatch;
+import com.uncooleben.OOAD.lab01.util.GameConfig;
+
+public class AntGameFrame extends JFrame implements Runnable {
 	private ArrayList<JTextField> antPos = new ArrayList<>();
-	private JTextField poleLen = new JTextField(10);
 	private JLabel time = new JLabel();
 	private JLabel killed = new JLabel();
+	private GameBatch gameBatch;
+	private DrawComponent drawComponent;
+
+	public void setGameBatch(GameBatch gameBatch) {
+		this.gameBatch = gameBatch;
+	}
 
 	public AntGameFrame() {
 		JPanel buttonPanel = new JPanel();
@@ -31,16 +43,24 @@ public class AntGameFrame extends JFrame {
 		final int DEFAULT_HEIGHT = (int) (screenSize.height * 0.7);
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		setLocationByPlatform(true);
-		// format button panel
-		buttonPanel.add(new JButton("Start"));
-		buttonPanel.add(new JButton("Reset"));
-		buttonPanel.add(new JButton("Exit"));
 		// format info panel
-		antPos.add(new JTextField(8));
-		antPos.add(new JTextField(8));
-		antPos.add(new JTextField(8));
-		antPos.add(new JTextField(8));
-		antPos.add(new JTextField(8));
+		JTextField ant0 = new JTextField(8);
+		ant0.setText("15");
+		antPos.add(ant0);
+		JTextField ant1 = new JTextField(8);
+		ant1.setText("40");
+		antPos.add(ant1);
+		JTextField ant2 = new JTextField(8);
+		ant2.setText("55");
+		antPos.add(ant2);
+		JTextField ant3 = new JTextField(8);
+		ant3.setText("80");
+		antPos.add(ant3);
+		JTextField ant4 = new JTextField(8);
+		ant4.setText("125");
+		antPos.add(ant4);
+		JTextField poleLen = new JTextField(10);
+		poleLen.setText("150");
 		// set layout
 		GridBagLayout layout = new GridBagLayout();
 		infoPanel.setLayout(layout);
@@ -78,8 +98,67 @@ public class AntGameFrame extends JFrame {
 		}
 		// add subpanel to main panel
 		add(infoPanel, BorderLayout.NORTH);
-		add(new DrawComponent(), BorderLayout.CENTER);
+		drawComponent = new DrawComponent(new PoleImpl(150, new ArrayList<Ant>()));
+
+		AntGameFrame frame = this;
+		// format button panel
+		JButton startButton = new JButton("Start");
+		startButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JTextField[] antTexts = new JTextField[] { ant0, ant1, ant2, ant3, ant4 };
+				double[] antLocations = new double[5];
+				int locationIndex = 0;
+				for (JTextField antText : antTexts) {
+					antLocations[locationIndex++] = Double.parseDouble(antText.getText());
+				}
+				double poleLength = Double.parseDouble(poleLen.getText());
+				GameConfig gameConfig = new GameConfig(1, poleLength, 5, antLocations,
+						new double[] { 50, 50, 50, 50, 50 }, frame);
+				gameBatch = new GameBatch(gameConfig, frame);
+				gameBatch.initializeGame();
+				synchronized (frame) {
+					frame.notifyAll();
+				}
+			}
+		});
+		buttonPanel.add(startButton);
+		JButton resetButton = new JButton("Reset");
+		resetButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+		buttonPanel.add(resetButton);
+		JButton exitButton = new JButton("Exit");
+		exitButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		buttonPanel.add(exitButton);
+		add(drawComponent, BorderLayout.CENTER);
 		add(buttonPanel, BorderLayout.SOUTH);
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
 
 	}
+
+	public GameBatch getGameBatch() {
+		return this.gameBatch;
+	}
+
+	public DrawComponent getDrawComponent() {
+		return this.drawComponent;
+	}
+
+	public void setDrawComponent(DrawComponent drawComponent) {
+		this.drawComponent = drawComponent;
+	}
+
 }
