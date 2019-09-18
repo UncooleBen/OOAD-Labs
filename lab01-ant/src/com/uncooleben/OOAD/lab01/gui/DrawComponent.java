@@ -11,6 +11,7 @@ import javax.swing.JComponent;
 
 import com.uncooleben.OOAD.lab01.character.Ant;
 import com.uncooleben.OOAD.lab01.character.Pole;
+import com.uncooleben.OOAD.lab01.main.GameBatch;
 
 public class DrawComponent extends JComponent {
 	private int width;
@@ -18,14 +19,28 @@ public class DrawComponent extends JComponent {
 	private double centerX;
 	private double centerY;
 	private Pole pole;
+	private GameBatch gameBatch;
+	private AntGameFrame antGameFrame;
+
+	public DrawComponent(Pole pole,AntGameFrame antGameFrame) {
+		super();
+		this.pole = pole;
+		this.gameBatch = gameBatch;
+		this.antGameFrame=antGameFrame;
+	}
 
 	public DrawComponent(Pole pole) {
 		super();
 		this.pole = pole;
 	}
 
+
 	public void setPole(Pole pole) {
 		this.pole = pole;
+	}
+
+	public void setGameBatch(GameBatch gameBatch) {
+		this.gameBatch = gameBatch;
 	}
 
 	@Override
@@ -56,6 +71,11 @@ public class DrawComponent extends JComponent {
 		}
 		g2.setPaint(Color.BLACK);
 		g2.draw(poleLine);
+		if(gameBatch!=null)
+		{
+			antGameFrame.setLongestField(String.valueOf(gameBatch.getLongest()));
+			antGameFrame.setShortestField(String.valueOf(gameBatch.getShortest()));
+		}
 	}
 
 	private void setColor(Graphics2D g2, Rectangle2D rect, Color color) {

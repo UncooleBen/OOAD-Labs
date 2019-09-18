@@ -23,7 +23,10 @@ import com.uncooleben.OOAD.lab01.util.GameConfig;
 public class AntGameFrame extends JFrame implements Runnable {
 	private ArrayList<JTextField> antPos = new ArrayList<>();
 	private JLabel time = new JLabel();
-	private JLabel killed = new JLabel();
+	private JTextField timeGap = new JTextField(5);
+	private JTextField speed= new JTextField(5);
+	private JLabel longestField=new JLabel();
+	private JLabel shortestField=new JLabel();
 	private GameBatch gameBatch;
 	private DrawComponent drawComponent;
 
@@ -61,6 +64,8 @@ public class AntGameFrame extends JFrame implements Runnable {
 		antPos.add(ant4);
 		JTextField poleLen = new JTextField(10);
 		poleLen.setText("150");
+		speed.setText("50");
+		timeGap.setText("1");
 		// set layout
 		GridBagLayout layout = new GridBagLayout();
 		infoPanel.setLayout(layout);
@@ -85,21 +90,34 @@ public class AntGameFrame extends JFrame implements Runnable {
 		constraints.gridx = 1;
 		{
 			JPanel tempPanel = new JPanel();
-			tempPanel.add(new JLabel("Time:", JLabel.RIGHT));
-			tempPanel.add(time);
+			tempPanel.add(new JLabel("Longest time:", JLabel.RIGHT));
+			tempPanel.add(longestField);
 			infoPanel.add(tempPanel, constraints);
 		}
 		constraints.gridx = 2;
 		{
 			JPanel tempPanel = new JPanel();
-			tempPanel.add(new JLabel("Killed:", JLabel.RIGHT));
-			tempPanel.add(killed);
+			tempPanel.add(new JLabel("Shortest time:", JLabel.RIGHT));
+			tempPanel.add(shortestField);
+			infoPanel.add(tempPanel, constraints);
+		}
+		constraints.gridx = 3;
+		{
+			JPanel tempPanel = new JPanel();
+			tempPanel.add(new JLabel("Time gap:", JLabel.RIGHT));
+			tempPanel.add(timeGap);
+			infoPanel.add(tempPanel, constraints);
+		}
+		constraints.gridx = 4;
+		{
+			JPanel tempPanel = new JPanel();
+			tempPanel.add(new JLabel("Speed:", JLabel.RIGHT));
+			tempPanel.add(speed);
 			infoPanel.add(tempPanel, constraints);
 		}
 		// add subpanel to main panel
 		add(infoPanel, BorderLayout.NORTH);
-		drawComponent = new DrawComponent(new PoleImpl(150, new ArrayList<Ant>()));
-
+		drawComponent = new DrawComponent(new PoleImpl(150, new ArrayList<Ant>()),this);
 		AntGameFrame frame = this;
 		// format button panel
 		JButton startButton = new JButton("Start");
@@ -113,24 +131,35 @@ public class AntGameFrame extends JFrame implements Runnable {
 					antLocations[locationIndex++] = Double.parseDouble(antText.getText());
 				}
 				double poleLength = Double.parseDouble(poleLen.getText());
-				GameConfig gameConfig = new GameConfig(1, poleLength, 5, antLocations,
-						new double[] { 50, 50, 50, 50, 50 }, frame);
+				int moveSpeed=Integer.parseInt(speed.getText());
+				int interval=Integer.parseInt(timeGap.getText());
+				GameConfig gameConfig = new GameConfig(interval, poleLength, 5, antLocations,
+						new double[] { moveSpeed, moveSpeed, moveSpeed, moveSpeed, moveSpeed }, frame);
 				gameBatch = new GameBatch(gameConfig, frame);
 				gameBatch.initializeGame();
+				timeGap.setText("1");
+				for(JTextField antText: antTexts)
+				{
+					antText.setEditable(false);
+				}
+				poleLen.setEditable(false);
+				speed.setEditable(false);
+				timeGap.setEditable(false);
+				drawComponent.setGameBatch(gameBatch);
 				synchronized (frame) {
 					frame.notifyAll();
 				}
 			}
 		});
 		buttonPanel.add(startButton);
-		JButton resetButton = new JButton("Reset");
+		/*JButton resetButton = new JButton("Reset");
 		resetButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
 			}
 		});
-		buttonPanel.add(resetButton);
+		buttonPanel.add(resetButton);*/
 		JButton exitButton = new JButton("Exit");
 		exitButton.addActionListener(new ActionListener() {
 			@Override
@@ -161,4 +190,11 @@ public class AntGameFrame extends JFrame implements Runnable {
 		this.drawComponent = drawComponent;
 	}
 
+	public void setLongestField(String longestValue) {
+		this.longestField.setText(longestValue);
+	}
+
+	public void setShortestField(String shortestValue) {
+		this.shortestField.setText(shortestValue);
+	}
 }
