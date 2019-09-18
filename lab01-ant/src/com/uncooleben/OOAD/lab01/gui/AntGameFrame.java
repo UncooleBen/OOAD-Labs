@@ -30,11 +30,11 @@ public class AntGameFrame extends JFrame
         buttonPanel.add(new JButton("Reset"));
         buttonPanel.add(new JButton("Exit"));
         //format info panel
-        antPos.add(new JTextField(10));
-        antPos.add(new JTextField(10));
-        antPos.add(new JTextField(10));
-        antPos.add(new JTextField(10));
-        antPos.add(new JTextField(10));
+        antPos.add(new JTextField(8));
+        antPos.add(new JTextField(8));
+        antPos.add(new JTextField(8));
+        antPos.add(new JTextField(8));
+        antPos.add(new JTextField(8));
         //set layout
         GridBagLayout layout=new GridBagLayout();
         infoPanel.setLayout(layout);
@@ -71,12 +71,10 @@ public class AntGameFrame extends JFrame
             tempPanel.add(killed);
             infoPanel.add(tempPanel,constraints);
         }
-        //format draw panel
-
+        //add subpanel to main panel
         add(infoPanel, BorderLayout.NORTH);
         add(new DrawComponent(),BorderLayout.CENTER);
         add(buttonPanel,BorderLayout.SOUTH);
-
 
     }
 }
