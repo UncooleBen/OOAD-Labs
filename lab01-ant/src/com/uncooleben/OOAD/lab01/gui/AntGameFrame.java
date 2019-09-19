@@ -152,6 +152,7 @@ public class AntGameFrame extends JFrame {
 				poleLengthField.setEditable(false);
 				timeGapField.setEditable(false);
 				drawComponent.setGameBatch(gameBatch);
+				startButton.setEnabled(false);
 				synchronized (frame) {
 					frame.notifyAll();
 				}
