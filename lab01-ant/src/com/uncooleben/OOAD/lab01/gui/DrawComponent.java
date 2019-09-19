@@ -22,18 +22,17 @@ public class DrawComponent extends JComponent {
 	private GameBatch gameBatch;
 	private AntGameFrame antGameFrame;
 
-	public DrawComponent(Pole pole,AntGameFrame antGameFrame) {
+	public DrawComponent(Pole pole, AntGameFrame antGameFrame) {
 		super();
 		this.pole = pole;
 		this.gameBatch = gameBatch;
-		this.antGameFrame=antGameFrame;
+		this.antGameFrame = antGameFrame;
 	}
 
 	public DrawComponent(Pole pole) {
 		super();
 		this.pole = pole;
 	}
-
 
 	public void setPole(Pole pole) {
 		this.pole = pole;
@@ -71,10 +70,15 @@ public class DrawComponent extends JComponent {
 		}
 		g2.setPaint(Color.BLACK);
 		g2.draw(poleLine);
-		if(gameBatch!=null)
-		{
-			antGameFrame.setLongestField(String.valueOf(gameBatch.getLongest()));
-			antGameFrame.setShortestField(String.valueOf(gameBatch.getShortest()));
+		if (gameBatch != null) {
+			if (gameBatch.getLongest() == Long.MIN_VALUE) {
+				antGameFrame.setLongestField("N/A");
+				antGameFrame.setShortestField("N/A");
+			} else {
+				antGameFrame.setLongestField(String.valueOf(gameBatch.getLongest()));
+				antGameFrame.setShortestField(String.valueOf(gameBatch.getShortest()));
+			}
+
 		}
 	}
 

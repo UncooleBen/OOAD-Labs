@@ -49,12 +49,32 @@ public class GameConfig {
 	private double[] antSpeeds;
 	private boolean guiFlag;
 
+	/**
+	 * Constructs a GameConfig object according to a given xml file.
+	 * 
+	 * @param file  A java.io.file object of XML document
+	 * @param frame An AntGameFrame object of the GUI
+	 * 
+	 */
 	public GameConfig(File file, AntGameFrame frame) {
 		this.guiFlag = false;
 		this.gameConfigFile = file;
 		this.frame = frame;
 	}
 
+	/**
+	 * Constructs a GameConfig object according to parameters get by GUI
+	 * 
+	 * @param timeGap      A long integer indicating the time gap of the game (in
+	 *                     milliseconds)
+	 * @param poleLength   A double indicating the pole's length
+	 * @param antNumber    An integer indicating the number of ants in the game
+	 *                     (default should be 5)
+	 * @param antLocations A double array storing the ants' locations
+	 * @param antSpeeds    A double array storing the ants' speed
+	 * @param frame        An AntGameFrame object of the GUI
+	 * 
+	 */
 	public GameConfig(long timeGap, double poleLength, int antNumber, double[] antLocations, double[] antSpeeds,
 			AntGameFrame frame) {
 		this.guiFlag = true;
@@ -163,6 +183,7 @@ public class GameConfig {
 	 * Constructs one ClimbingGame object according to the GUI parameters.
 	 * 
 	 * @param timeGap A long integer indicating the time gap in milliseconds
+	 * 
 	 */
 	private void constructGUIClimbingGame(long timeGap) {
 		climbingGame = new ClimbingGameImpl(pole, timeGap, frame);
@@ -172,6 +193,7 @@ public class GameConfig {
 	 * Gets the climbingGame according to the game config
 	 *
 	 * @return A ClimbingGame oject configured under the given parameter
+	 * 
 	 */
 	public ClimbingGame getGame() {
 		if (this.guiFlag) {

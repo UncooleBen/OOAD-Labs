@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,52 +21,54 @@ import com.uncooleben.OOAD.lab01.character.impl.PoleImpl;
 import com.uncooleben.OOAD.lab01.main.GameBatch;
 import com.uncooleben.OOAD.lab01.util.GameConfig;
 
-public class AntGameFrame extends JFrame implements Runnable {
-	private ArrayList<JTextField> antPos = new ArrayList<>();
-	private JLabel time = new JLabel();
-	private JTextField timeGap = new JTextField(5);
-	private JTextField speed= new JTextField(5);
-	private JLabel longestField=new JLabel();
-	private JLabel shortestField=new JLabel();
+/**
+ * A class that creates the main frame of the GUI
+ * <p>
+ * 
+ * This is a part of OOAD-Lab01 project.
+ * 
+ * @author Shangzhen Li, Juntao Peng
+ */
+public class AntGameFrame extends JFrame {
+
 	private GameBatch gameBatch;
+
+	private JPanel buttonPanel;
+
+	private JPanel drawPanel;
+
+	private JPanel infoPanel;
+
+	private List<JTextField> antPosField;
+
+	private List<JTextField> antSpeedField;
+
+	private JLabel time;
+
+	private JTextField poleLengthField;
+
+	private JTextField timeGapField;
+
+	private JLabel longestField;
+
+	private JLabel shortestField;
+
+	private int DEFAULT_WIDTH;
+
+	private int DEFAULT_HEIGHT;
+
 	private DrawComponent drawComponent;
 
-	public void setGameBatch(GameBatch gameBatch) {
-		this.gameBatch = gameBatch;
-	}
-
 	public AntGameFrame() {
-		JPanel buttonPanel = new JPanel();
-		JPanel drawPanel = new JPanel();
-		JPanel infoPanel = new JPanel();
+		initializeFields();
 		setTitle("Ant Game");
-		// set frame size according to actual screen size
-		Toolkit kit = Toolkit.getDefaultToolkit();
-		Dimension screenSize = kit.getScreenSize();
-		final int DEFAULT_WIDTH = (int) (screenSize.width * 0.7);
-		final int DEFAULT_HEIGHT = (int) (screenSize.height * 0.7);
+		fetchFrameSize();
 		setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		setLocationByPlatform(true);
 		// format info panel
-		JTextField ant0 = new JTextField(8);
-		ant0.setText("15");
-		antPos.add(ant0);
-		JTextField ant1 = new JTextField(8);
-		ant1.setText("40");
-		antPos.add(ant1);
-		JTextField ant2 = new JTextField(8);
-		ant2.setText("55");
-		antPos.add(ant2);
-		JTextField ant3 = new JTextField(8);
-		ant3.setText("80");
-		antPos.add(ant3);
-		JTextField ant4 = new JTextField(8);
-		ant4.setText("125");
-		antPos.add(ant4);
-		JTextField poleLen = new JTextField(10);
-		poleLen.setText("150");
-		speed.setText("50");
-		timeGap.setText("1");
+		setAntPosField(new String[] { "15", "40", "55", "80", "125" });
+		setAntSpeedField(new String[] { "25", "25", "25", "25", "25" });
+		setAntAttr("150", "50", "1");
 		// set layout
 		GridBagLayout layout = new GridBagLayout();
 		infoPanel.setLayout(layout);
@@ -76,15 +79,22 @@ public class AntGameFrame extends JFrame implements Runnable {
 		for (constraints.gridx = 0; constraints.gridx < 5; constraints.gridx++) {
 			JPanel tempPanel = new JPanel();
 			tempPanel.add(new JLabel("Ant" + constraints.gridx + ":", JLabel.RIGHT));
-			tempPanel.add(antPos.get(constraints.gridx));
+			tempPanel.add(antPosField.get(constraints.gridx));
 			infoPanel.add(tempPanel, constraints);
 		}
 		constraints.gridy = 1;
+		for (constraints.gridx = 0; constraints.gridx < 5; constraints.gridx++) {
+			JPanel tempPanel = new JPanel();
+			tempPanel.add(new JLabel("Speed" + constraints.gridx + ":", JLabel.RIGHT));
+			tempPanel.add(antSpeedField.get(constraints.gridx));
+			infoPanel.add(tempPanel, constraints);
+		}
+		constraints.gridy = 2;
 		constraints.gridx = 0;
 		{
 			JPanel tempPanel = new JPanel();
 			tempPanel.add(new JLabel("PoleLength(cm):", JLabel.RIGHT));
-			tempPanel.add(poleLen);
+			tempPanel.add(poleLengthField);
 			infoPanel.add(tempPanel, constraints);
 		}
 		constraints.gridx = 1;
@@ -105,46 +115,42 @@ public class AntGameFrame extends JFrame implements Runnable {
 		{
 			JPanel tempPanel = new JPanel();
 			tempPanel.add(new JLabel("Time gap(ms):", JLabel.RIGHT));
-			tempPanel.add(timeGap);
-			infoPanel.add(tempPanel, constraints);
-		}
-		constraints.gridx = 4;
-		{
-			JPanel tempPanel = new JPanel();
-			tempPanel.add(new JLabel("Speed(cm/s):", JLabel.RIGHT));
-			tempPanel.add(speed);
+			tempPanel.add(timeGapField);
 			infoPanel.add(tempPanel, constraints);
 		}
 		// add subpanel to main panel
 		add(infoPanel, BorderLayout.NORTH);
-		drawComponent = new DrawComponent(new PoleImpl(150, new ArrayList<Ant>()),this);
+		drawComponent = new DrawComponent(new PoleImpl(150, new ArrayList<Ant>()), this);
 		AntGameFrame frame = this;
 		// format button panel
 		JButton startButton = new JButton("Start");
 		startButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JTextField[] antTexts = new JTextField[] { ant0, ant1, ant2, ant3, ant4 };
 				double[] antLocations = new double[5];
-				int locationIndex = 0;
-				for (JTextField antText : antTexts) {
-					antLocations[locationIndex++] = Double.parseDouble(antText.getText());
+				double[] antSpeeds = new double[5];
+				int tempIndex = 0;
+				for (JTextField antPosText : antPosField) {
+					antLocations[tempIndex++] = Double.parseDouble(antPosText.getText());
 				}
-				double poleLength = Double.parseDouble(poleLen.getText());
-				int moveSpeed=Integer.parseInt(speed.getText());
-				int interval=Integer.parseInt(timeGap.getText());
-				GameConfig gameConfig = new GameConfig(interval, poleLength, 5, antLocations,
-						new double[] { moveSpeed, moveSpeed, moveSpeed, moveSpeed, moveSpeed }, frame);
+				tempIndex = 0;
+				for (JTextField antSpeedText : antSpeedField) {
+					antSpeeds[tempIndex++] = Double.parseDouble(antSpeedText.getText());
+				}
+				double poleLength = Double.parseDouble(poleLengthField.getText());
+				int interval = Integer.parseInt(timeGapField.getText());
+				GameConfig gameConfig = new GameConfig(interval, poleLength, 5, antLocations, antSpeeds, frame);
 				gameBatch = new GameBatch(gameConfig, frame);
 				gameBatch.initializeGame();
-				timeGap.setText(String.valueOf(interval));
-				for(JTextField antText: antTexts)
-				{
-					antText.setEditable(false);
+				timeGapField.setText(String.valueOf(interval));
+				for (JTextField antPosText : antPosField) {
+					antPosText.setEditable(false);
 				}
-				poleLen.setEditable(false);
-				speed.setEditable(false);
-				timeGap.setEditable(false);
+				for (JTextField antSpeedText : antSpeedField) {
+					antSpeedText.setEditable(false);
+				}
+				poleLengthField.setEditable(false);
+				timeGapField.setEditable(false);
 				drawComponent.setGameBatch(gameBatch);
 				synchronized (frame) {
 					frame.notifyAll();
@@ -152,14 +158,6 @@ public class AntGameFrame extends JFrame implements Runnable {
 			}
 		});
 		buttonPanel.add(startButton);
-		/*JButton resetButton = new JButton("Reset");
-		resetButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		buttonPanel.add(resetButton);*/
 		JButton exitButton = new JButton("Exit");
 		exitButton.addActionListener(new ActionListener() {
 			@Override
@@ -172,14 +170,56 @@ public class AntGameFrame extends JFrame implements Runnable {
 		add(buttonPanel, BorderLayout.SOUTH);
 	}
 
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
+	private void initializeFields() {
+		this.antPosField = new ArrayList<JTextField>();
+		this.antSpeedField = new ArrayList<JTextField>();
+		this.buttonPanel = new JPanel();
+		this.drawPanel = new JPanel();
+		this.infoPanel = new JPanel();
+		this.time = new JLabel();
+		this.poleLengthField = new JTextField(8);
+		this.timeGapField = new JTextField(5);
+		this.longestField = new JLabel();
+		this.shortestField = new JLabel();
+	}
 
+	/**
+	 * set frame size according to actual screen size
+	 */
+	private void fetchFrameSize() {
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		Dimension screenSize = kit.getScreenSize();
+		this.DEFAULT_WIDTH = (int) (screenSize.width * 0.7);
+		this.DEFAULT_HEIGHT = (int) (screenSize.height * 0.7);
+	}
+
+	private void setAntPosField(String[] antPositions) {
+		for (int index = 0; index < antPositions.length; index++) {
+			JTextField antTextField = new JTextField(8);
+			antTextField.setText(antPositions[index]);
+			this.antPosField.add(antTextField);
+		}
+	}
+
+	private void setAntSpeedField(String[] antSpeeds) {
+		for (int index = 0; index < antSpeeds.length; index++) {
+			JTextField antTextField = new JTextField(8);
+			antTextField.setText(antSpeeds[index]);
+			this.antSpeedField.add(antTextField);
+		}
+	}
+
+	private void setAntAttr(String poleLength, String speed, String timeGap) {
+		poleLengthField.setText("150");
+		timeGapField.setText("1");
 	}
 
 	public GameBatch getGameBatch() {
 		return this.gameBatch;
+	}
+
+	public void setGameBatch(GameBatch gameBatch) {
+		this.gameBatch = gameBatch;
 	}
 
 	public DrawComponent getDrawComponent() {
