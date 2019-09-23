@@ -61,6 +61,7 @@ public class GameBatch implements Runnable {
 		int bits = 0;
 		this.shortest = Long.MAX_VALUE;
 		this.longest = Long.MIN_VALUE;
+		long start = System.currentTimeMillis();
 		while (total > 0) {
 			this.climbingGame.setAntsDirection(bits);
 			printAntsDirection();
@@ -76,6 +77,7 @@ public class GameBatch implements Runnable {
 			total--;
 			initializeGame();
 		}
+		System.out.println("time used : "+(System.currentTimeMillis()-start));
 		System.out.println("Shortest time " + shortest);
 		System.out.println("Longest time " + longest);
 	}

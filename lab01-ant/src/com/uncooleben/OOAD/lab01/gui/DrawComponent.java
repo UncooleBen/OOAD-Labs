@@ -78,7 +78,7 @@ public class DrawComponent extends JComponent {
 		int index = 0;
 		Color[] colors = new Color[] { Color.RED, Color.BLUE, Color.GRAY, Color.ORANGE, Color.MAGENTA };
 		for (Ant ant : this.pole.getAnts()) {
-			System.out.println(ant.getLocation());
+			//System.out.println(ant.getLocation());
 			Rectangle2D antRect = new Rectangle2D.Double(centerX - width / 2 + ratio * ant.getLocation(), centerY - 2.5,
 					10, 10);
 			setColor(g2, antRect, colors[index++]);

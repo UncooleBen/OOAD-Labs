@@ -23,6 +23,7 @@ public class ClimbingGameImpl implements ClimbingGame {
 	private long time;
 	private long timeGap;
 	private AntGameFrame frame;
+	private static long gameGap = 1L;
 
 	/**
 	 * Constructs an ClimbingGameImpl object according to the given parameters.
@@ -44,10 +45,12 @@ public class ClimbingGameImpl implements ClimbingGame {
 	@Override
 	public void startGame() {
 		while (!isGameOver()) {
-			frame.repaint();
-			frame.validate();
+			if (time % timeGap==0) {
+				frame.repaint();
+				frame.validate();
+			}
 			try {
-				TimeUnit.MILLISECONDS.sleep(timeGap);
+				TimeUnit.MILLISECONDS.sleep(gameGap);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -57,9 +60,9 @@ public class ClimbingGameImpl implements ClimbingGame {
 
 	@Override
 	public void timeElapse() {
-		this.pole.moveByTime(timeGap);
+		this.pole.moveByTime(gameGap);
 		this.pole.performCheck();
-		time += timeGap;
+		time += gameGap;
 	}
 
 	@Override

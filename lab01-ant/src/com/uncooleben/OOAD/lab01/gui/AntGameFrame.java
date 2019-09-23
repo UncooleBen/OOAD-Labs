@@ -68,9 +68,9 @@ public class AntGameFrame extends JFrame {
 		setLocationByPlatform(true);
 
 		// set default value
-		setAntPosField(new String[] { "15", "40", "55", "80", "125" });
-		setAntSpeedField(new String[] { "25", "25", "25", "25", "25" });
-		setAntAttr("150", "1");
+		setAntPosField(new String[] { "30", "80", "110", "160", "250" });
+		setAntSpeedField(new String[] { "5", "5", "5", "5", "5" });
+		setAntAttr("300", "1");
 
 		// form infoPanel
 		GridBagLayout layout = new GridBagLayout();
@@ -138,6 +138,7 @@ public class AntGameFrame extends JFrame {
 		startButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>"+System.currentTimeMillis());
 				// get user's input(may be the default value)
 				double[] antLocations = new double[5];
 				double[] antSpeeds = new double[5];
@@ -178,6 +179,7 @@ public class AntGameFrame extends JFrame {
 		exitButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println(">>>>>>>>>>>>>>>>>>>>>>>"+System.currentTimeMillis());
 				System.exit(0);
 			}
 		});

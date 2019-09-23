@@ -23,6 +23,7 @@ public class PoleImpl implements Pole {
 	private double size;
 	private List<Ant> ants;
 	private int aliveNumber;
+	private double maxAntSpeed;
 
 	public PoleImpl() {
 
@@ -41,7 +42,7 @@ public class PoleImpl implements Pole {
 		this.size = size;
 		this.ants = new ArrayList<Ant>(ants);
 		this.aliveNumber = this.ants.size();
-		System.out.println(this.ants.size());
+		this.maxAntSpeed = getMaxAntSpeed();
 	}
 
 	@Override
@@ -120,7 +121,7 @@ public class PoleImpl implements Pole {
 	private boolean isCollided(Ant ant1, Ant ant2) {
 		// TODO Change the 0.2 below to a value related to the given ant's speed and the
 		// game's timeGap.
-		return Math.abs(ant1.getLocation() - ant2.getLocation()) < 0.2;
+		return Math.abs(ant1.getLocation() - ant2.getLocation()) < this.maxAntSpeed * 2 * 1 / 1000;
 	}
 
 	/**
@@ -147,7 +148,15 @@ public class PoleImpl implements Pole {
 	 * @return A boolean variable indicating whether the ant is out of the bound
 	 */
 	private boolean isOutOfBound(Ant ant) {
-		return Math.abs(ant.getLocation()) < 0.1 || Math.abs(ant.getLocation() - this.size) < 0.1;
+		return Math.abs(ant.getLocation()) < this.maxAntSpeed * 1 / 1000 || Math.abs(ant.getLocation() - this.size) < this.maxAntSpeed * 1 / 1000;
+	}
+	
+	private double getMaxAntSpeed() {
+		double result = Double.MIN_VALUE;
+		for (Ant ant : this.ants) {
+			result = ant.getSpeed()>result?ant.getSpeed():result;
+		}
+		return result;
 	}
 
 	@Override
