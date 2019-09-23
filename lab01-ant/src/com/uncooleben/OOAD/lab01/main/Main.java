@@ -4,15 +4,9 @@ import javax.swing.JFrame;
 
 import com.uncooleben.OOAD.lab01.gui.AntGameFrame;
 
-public class Main extends JFrame {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3780756319003467280L;
+public class Main {
 
 	private static AntGameFrame frame;
-	private static GameBatch gameBatch;
 
 	public static void main(String[] args) {
 		frame = new AntGameFrame();

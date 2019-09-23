@@ -43,15 +43,9 @@ public class ClimbingGameImpl implements ClimbingGame {
 
 	@Override
 	public void startGame() {
-		System.out.println("Climbing Game Started");
 		while (!isGameOver()) {
-			// System.out.println("Current Time: " + this.time);
-//			if (time % 200 == 0) {
-//				printAnts();
-//			}
 			frame.repaint();
 			frame.validate();
-			// System.out.println(timeGap);
 			try {
 				TimeUnit.MILLISECONDS.sleep(timeGap);
 			} catch (InterruptedException e) {
@@ -59,7 +53,6 @@ public class ClimbingGameImpl implements ClimbingGame {
 			}
 			timeElapse();
 		}
-		System.out.println("Climbing Ended At Time: " + this.time + "\n--------------------------");
 	}
 
 	@Override
@@ -85,8 +78,10 @@ public class ClimbingGameImpl implements ClimbingGame {
 	}
 
 	/**
-	 * Prints the current game status in command line
+	 * Prints the current game status in command line. It will be unused once the
+	 * GUI has finished.
 	 */
+	@SuppressWarnings("unused")
 	private void printAnts() {
 		HashMap<Integer, Integer> locationToAnt = new HashMap<Integer, Integer>();
 		for (Ant ant : this.pole.getAnts()) {
