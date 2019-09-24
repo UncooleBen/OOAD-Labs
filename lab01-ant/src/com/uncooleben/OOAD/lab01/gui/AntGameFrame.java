@@ -58,6 +58,15 @@ public class AntGameFrame extends JFrame {
 	private int DEFAULT_HEIGHT;
 
 	private DrawComponent drawComponent;
+	private boolean done;
+
+	public boolean isDone() {
+		return done;
+	}
+
+	public void setDone(boolean done) {
+		this.done = done;
+	}
 
 	public AntGameFrame() {
 		// set main frame's attributes
@@ -107,21 +116,21 @@ public class AntGameFrame extends JFrame {
 		constraints.gridx = 1;
 		{
 			JPanel tempPanel = new JPanel();
-			tempPanel.add(new JLabel("Longest time(ms):", JLabel.RIGHT));
+			tempPanel.add(new JLabel("Longest time:", JLabel.RIGHT));
 			tempPanel.add(longestField);
 			infoPanel.add(tempPanel, constraints);
 		}
 		constraints.gridx = 2;
 		{
 			JPanel tempPanel = new JPanel();
-			tempPanel.add(new JLabel("Shortest time(ms):", JLabel.RIGHT));
+			tempPanel.add(new JLabel("Shortest time:", JLabel.RIGHT));
 			tempPanel.add(shortestField);
 			infoPanel.add(tempPanel, constraints);
 		}
 		constraints.gridx = 3;
 		{
 			JPanel tempPanel = new JPanel();
-			tempPanel.add(new JLabel("Time gap(ms):", JLabel.RIGHT));
+			tempPanel.add(new JLabel("Time gap:", JLabel.RIGHT));
 			tempPanel.add(timeGapField);
 			infoPanel.add(tempPanel, constraints);
 		}

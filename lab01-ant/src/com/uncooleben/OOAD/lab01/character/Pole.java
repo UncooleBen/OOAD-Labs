@@ -24,7 +24,7 @@ public interface Pole {
 	/**
 	 * Performs a check according to the game rule.
 	 */
-	public void performCheck();
+	public void performCheck(long timeGap);
 
 	/**
 	 * Gets the number of alive ants.

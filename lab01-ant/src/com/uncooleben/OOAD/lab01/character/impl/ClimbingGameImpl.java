@@ -62,7 +62,7 @@ public class ClimbingGameImpl implements ClimbingGame {
 	@Override
 	public void timeElapse() {
 		this.pole.moveByTime(gameGap);
-		this.pole.performCheck();
+		this.pole.performCheck(gameGap);
 		time += gameGap;
 	}
 

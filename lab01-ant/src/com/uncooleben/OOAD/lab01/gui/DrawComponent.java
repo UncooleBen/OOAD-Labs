@@ -67,6 +67,11 @@ public class DrawComponent extends JComponent {
 		height = size.height;
 		Rectangle2D boundary = new Rectangle2D.Double(leftX, topY, width - 3, height - 2);
 		g2.draw(boundary);
+		if(antGameFrame.isDone())
+		{
+			g2.drawString("Game finished!",width/2,height/2);
+			return;
+		}
 		// draw pole
 		centerX = boundary.getCenterX();
 		centerY = boundary.getCenterY();
@@ -90,8 +95,8 @@ public class DrawComponent extends JComponent {
 				antGameFrame.setLongestField("N/A");
 				antGameFrame.setShortestField("N/A");
 			} else {
-				antGameFrame.setLongestField(String.valueOf(gameBatch.getLongest()));
-				antGameFrame.setShortestField(String.valueOf(gameBatch.getShortest()));
+				antGameFrame.setLongestField(String.valueOf(gameBatch.getLongest()/1000));
+				antGameFrame.setShortestField(String.valueOf(gameBatch.getShortest()/1000));
 			}
 		}
 	}

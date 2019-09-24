@@ -77,6 +77,9 @@ public class GameBatch implements Runnable {
 			total--;
 			initializeGame();
 		}
+		frame.setDone(true);
+		frame.repaint();
+		frame.validate();
 		System.out.println("time used : "+(System.currentTimeMillis()-start));
 		System.out.println("Shortest time " + shortest);
 		System.out.println("Longest time " + longest);
