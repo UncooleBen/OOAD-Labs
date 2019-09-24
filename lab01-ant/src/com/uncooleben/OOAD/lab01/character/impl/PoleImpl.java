@@ -121,7 +121,7 @@ public class PoleImpl implements Pole {
 	private boolean isCollided(Ant ant1, Ant ant2) {
 		// TODO Change the 0.2 below to a value related to the given ant's speed and the
 		// game's timeGap.
-		return Math.abs(ant1.getLocation() - ant2.getLocation()) < this.maxAntSpeed * 2 * 1 / 1000;
+		return Math.abs(ant1.getLocation() - ant2.getLocation()) < this.maxAntSpeed * 2 * 1 / 1000000;
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class PoleImpl implements Pole {
 	 * @return A boolean variable indicating whether the ant is out of the bound
 	 */
 	private boolean isOutOfBound(Ant ant) {
-		return Math.abs(ant.getLocation()) < this.maxAntSpeed * 1 / 1000 || Math.abs(ant.getLocation() - this.size) < this.maxAntSpeed * 1 / 1000;
+		return Math.abs(ant.getLocation()) < this.maxAntSpeed * 1 / 1000000 || Math.abs(ant.getLocation() - this.size) < this.maxAntSpeed * 1 / 1000000;
 	}
 	
 	private double getMaxAntSpeed() {

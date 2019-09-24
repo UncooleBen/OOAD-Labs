@@ -23,7 +23,7 @@ public class ClimbingGameImpl implements ClimbingGame {
 	private long time;
 	private long timeGap;
 	private AntGameFrame frame;
-	private static long gameGap = 1L;
+	private static long gameGap = 20L;
 
 	/**
 	 * Constructs an ClimbingGameImpl object according to the given parameters.
@@ -49,8 +49,9 @@ public class ClimbingGameImpl implements ClimbingGame {
 				frame.repaint();
 				frame.validate();
 			}
+			System.out.println(time);
 			try {
-				TimeUnit.MILLISECONDS.sleep(gameGap);
+				TimeUnit.NANOSECONDS.sleep(gameGap);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -106,7 +107,6 @@ public class ClimbingGameImpl implements ClimbingGame {
 	@Override
 	public void setAntsDirection(int bits) {
 		this.pole.setAntsDirection(bits);
-
 	}
 
 }
