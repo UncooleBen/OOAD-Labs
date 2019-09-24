@@ -67,9 +67,8 @@ public class DrawComponent extends JComponent {
 		height = size.height;
 		Rectangle2D boundary = new Rectangle2D.Double(leftX, topY, width - 3, height - 2);
 		g2.draw(boundary);
-		if(antGameFrame.isDone())
-		{
-			g2.drawString("Game finished!",width/2,height/2);
+		if (antGameFrame.isDone()) {
+			g2.drawString("Game finished!", width / 2, height / 2);
 			return;
 		}
 		// draw pole
@@ -83,7 +82,7 @@ public class DrawComponent extends JComponent {
 		int index = 0;
 		Color[] colors = new Color[] { Color.RED, Color.BLUE, Color.GRAY, Color.ORANGE, Color.MAGENTA };
 		for (Ant ant : this.pole.getAnts()) {
-			//System.out.println(ant.getLocation());
+			// System.out.println(ant.getLocation());
 			Rectangle2D antRect = new Rectangle2D.Double(centerX - width / 2 + ratio * ant.getLocation(), centerY - 2.5,
 					10, 10);
 			setColor(g2, antRect, colors[index++]);
@@ -95,8 +94,8 @@ public class DrawComponent extends JComponent {
 				antGameFrame.setLongestField("N/A");
 				antGameFrame.setShortestField("N/A");
 			} else {
-				antGameFrame.setLongestField(String.valueOf(gameBatch.getLongest()/1000));
-				antGameFrame.setShortestField(String.valueOf(gameBatch.getShortest()/1000));
+				antGameFrame.setLongestField(String.valueOf(Math.round((0.001 * gameBatch.getLongest()))));
+				antGameFrame.setShortestField(String.valueOf(Math.round((0.001 * gameBatch.getShortest()))));
 			}
 		}
 	}
