@@ -1,4 +1,7 @@
-lab01-ant/.idea/
+lab01-ant/.idea/*
 lab01-ant/lab01-ant.iml
 lab01-ant/out/
 lab01-ant/output.txt
+lab02-blackjack/.idea/*
+lab02-blackjack/lab02-blackjack.iml
+lab02-blackjack/out/
