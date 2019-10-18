@@ -1,10 +1,19 @@
 package com.OOADLab;
 
-import java.util.LinkedList;
-import java.util.List;
+/**
+ * This class is used in lab02-blackjack as a part of OOAD-Labs.
+ *
+ * <p>This class represents a dealer during the game. The class extends Player because dealer is a
+ * special player logically.
+ *
+ * @author Shangzhen Li
+ */
+public class Dealer extends Player {
+  public void dealDealer(Deck d) {
+    addCard(d.GetAndRemoveFirstCard(), 0);
+  }
 
-public class Dealer extends Player
-{
-
-
+  public void dealPlayer(Player p, Deck d) {
+    p.addCard(d.GetAndRemoveFirstCard(), 0);
+  }
 }
