@@ -1,39 +1,39 @@
 package com.OOADLab;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import jdk.jfr.Unsigned;
 
 public class Player 
 {
-	private List<Card> cardinhand;
-	
-	public Player()
-	{
-		cardinhand=new LinkedList<Card>();
-	}
-	
-	
-	public void DrawCardFirst(Deck deck)
-	{
-		cardinhand.add(deck.GetAndRemoveFirstCard());
-		cardinhand.add(deck.GetAndRemoveFirstCard());
-	}
-	
-	
-	public void AddCard(Card card)
-	{
-		this.cardinhand.add(card);
-	}
-	
-	public int GetcardinhandCount()
-	{
-		return this.cardinhand.size();
-	}
-	
-	public int GetcardinhandValue()
-	{
-		int value=0;
-		//TODO
-		return value;
-	}
+	private List<Hand> hands;
+  private int chipBalance;
+  private int currentBet;
+  Player()
+  {
+    hands=new ArrayList<>();
+    chipBalance=0;
+    currentBet=0;
+  }
+  public void addCard(Card c, int handNum)
+  {
+    hands.get(handNum).addCard(c);
+  }
+  public void addChipBalance(int amount)
+  {
+    chipBalance+=amount;
+  }
+  public void applyReward(int reward)
+  {
+    currentBet+=reward;
+  }
+  public int getHandValue(int handNum)
+  {
+    return hands.get(handNum).calculateValue();
+  }
+
+  public int getChipBalance() {
+    return chipBalance;
+  }
 }
