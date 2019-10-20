@@ -38,18 +38,18 @@ public class GameController {
 				player.resetHand();
 				dealer.resetHand();
 				int chipBalance = player.getChipBalance();
-				if (chipBalance < 10) // Check remaining chip
+				if (chipBalance <= 0) // Check remaining chip
 				{
-					out.printf("余额不足，最小为10，当前余额%d，请前往充值界面充值", chipBalance);
+					out.printf("余额不足，当前余额%d，请前往充值界面充值\n", chipBalance);
 					break;
 				}
 				out.print("设置使用牌组数（最少1副，最多6副）："); // Set number of suits
 				int numOfSuit = in.nextInt();
 				if (numOfSuit >= 1 && numOfSuit <= 6) {
 					deck = new Deck(numOfSuit);
-					out.print("初始化完成，请下注，当前拥有" + chipBalance + "个筹码\n" + "输入赌注（最小10）：");
+					out.print("初始化完成，请下注，当前拥有" + chipBalance + "个筹码\n" + "输入赌注：");
 					int bet = in.nextInt();
-					if (bet < 10 || bet > chipBalance) // Check input bet
+					if (bet <= 0 || bet > chipBalance) // Check input bet
 					{
 						out.println("筹码输入错误，返回主界面");
 						break;
