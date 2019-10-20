@@ -163,7 +163,7 @@ public class GameController {
 	/**
 	 * Called when player wins.
 	 *
-	 * @param bet
+	 * @param bet Amount of chip the player bets.
 	 */
 	private void playerWin(int bet) {
 		out.print("你赢了\n");
@@ -177,7 +177,7 @@ public class GameController {
 	/**
 	 * Called when player loses.
 	 *
-	 * @param bet
+	 * @param bet Amount of chip the player bets.
 	 */
 	private void playerLose(int bet) {
 		out.print("你输了\n");
@@ -191,7 +191,7 @@ public class GameController {
 	/**
 	 * Called when the game draws.
 	 *
-	 * @param bet
+	 * @param bet Amount of chip the player bets.
 	 */
 	private void draw(int bet) {
 		out.print("平局\n赌注返还\n");
