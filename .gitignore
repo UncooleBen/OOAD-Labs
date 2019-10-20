@@ -5,3 +5,6 @@ lab01-ant/output.txt
 lab02-blackjack/.idea/*
 lab02-blackjack/lab02-blackjack.iml
 lab02-blackjack/out/
+lab02-blackjack/bin/*
+lab02-blackjack/.classpath
+lab02-blackjack/.project
