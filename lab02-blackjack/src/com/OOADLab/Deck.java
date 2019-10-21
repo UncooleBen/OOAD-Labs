@@ -16,7 +16,7 @@ public class Deck {
 	private List<Card> cardList;
 
 	/**
-	 * Constructor of Deck.
+	 * Bulid Deck and Shuffles  deck when game starts.
 	 * 
 	 * @param size The size of deck in suit number
 	 */
@@ -44,21 +44,32 @@ public class Deck {
 			size--;
 		}
 	}
-
+    /**
+	 * Get the First Card of Deck.
+	 */
 	public Card GetFirstCard() {
 		return cardList.get(0);
 	}
 
+	
+	/**
+	 * Remove the First Card of Deck.
+	 */
 	public void RemoveFirstCard() {
 		cardList.remove(0);
 	}
-
+               
+    /**
+	 * Get the First Card of Deck and Remove it.
+	 */
 	public Card GetAndRemoveFirstCard() {
 		Card card = cardList.get(0);
 		cardList.remove(0);
 		return card;
 	}
-
+	/**
+	 * Count the amount of Card in the deck
+	 */
 	public int CountCardRemain() {
 		return this.cardList.size();
 	}

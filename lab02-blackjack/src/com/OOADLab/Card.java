@@ -9,7 +9,8 @@ package com.OOADLab;
  *
  * @author Yuanjie Guo, Juntao Peng
  */
-public enum Card {
+public enum Card 
+{
 	SPADE_A("A"), SPADE_2("2"), SPADE_3("3"), SPADE_4("4"), SPADE_5("5"), SPADE_6("6"), SPADE_7("7"), SPADE_8("8"),
 	SPADE_9("9"), SPADE_10("10"), SPADE_J("10"), SPADE_Q("10"), SPADE_K("10"), HEART_A("A"), HEART_2("2"), HEART_3("3"),
 	HEART_4("4"), HEART_5("5"), HEART_6("6"), HEART_7("7"), HEART_8("8"), HEART_9("9"), HEART_10("10"), HEART_J("10"),
@@ -19,11 +20,16 @@ public enum Card {
 	DIAMOND_9("9"), DIAMOND_10("10"), DIAMOND_J("10"), DIAMOND_Q("10"), DIAMOND_K("10");
 
 	private String value;
-
+	
+	/**
+	 * Constructor of Card
+	 */
 	Card(String value) {
 		this.value = value;
 	}
-
+	/**
+	 * Get the String Value of Card.
+	 */
 	public String GetValue() {
 		return this.value;
 	}
