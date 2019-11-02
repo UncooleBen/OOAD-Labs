@@ -141,6 +141,9 @@ public class MainFrame extends JFrame {
 		for (ComponentButton componentButton : _componentButtons) {
 			componentButton.addActionListener(new ComponentButtonListener(componentButton));
 		}
+		for (ToolButton toolButton : _toolButtons) {
+			toolButton.addActionListener(new ToolButtonListener(toolButton));
+		}
 		_grid.addMouseListener(new GridMouseListener());
 
 	}
@@ -162,8 +165,15 @@ public class MainFrame extends JFrame {
 
 	private class ToolButtonListener implements ActionListener {
 
-		public void actionPerformed(ActionEvent e) {
+		private ToolButton _toolButton;
 
+		public ToolButtonListener(ToolButton toolButton) {
+			_toolButton = toolButton;
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			_toolButton.push(_grid);
+			_grid.repaint();
 		}
 
 	}

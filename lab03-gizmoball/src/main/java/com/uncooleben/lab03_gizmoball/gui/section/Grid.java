@@ -72,12 +72,37 @@ public class Grid extends JPanel {
 		_selectedComponent = null;
 	}
 
-	public void removeComponent() {
+	public void removeSelectedComponent() {
+		if (_select == null || _selectedComponent == null) {
+			System.out.println("early return");
+			return;
+		}
+		System.out.println("removing " + _selectedComponent);
+		_components.remove(_selectedComponent);
+		removeSelect();
+	}
+
+	public void rotateSelectedComponent() {
 		if (_select == null || _selectedComponent == null) {
 			return;
 		}
-		_components.remove(_selectedComponent);
-		removeSelect();
+		_selectedComponent.rotate();
+	}
+
+	public void zoomInSelectedComponent() {
+		if (_select == null || _selectedComponent == null) {
+			return;
+		}
+		_selectedComponent.zoom_in();
+		_select.set_size(_selectedComponent.get_size());
+	}
+
+	public void zoomOutSelectedComponent() {
+		if (_select == null || _selectedComponent == null) {
+			return;
+		}
+		_selectedComponent.zoom_out();
+		_select.set_size(_selectedComponent.get_size());
 	}
 
 	public boolean select(int x, int y) {

@@ -4,6 +4,8 @@ import java.awt.Dimension;
 
 import javax.swing.JButton;
 
+import com.uncooleben.lab03_gizmoball.gui.section.Grid;
+
 public abstract class ToolButton extends JButton {
 
 	private static final int BUTTON_WIDTH = 90;
@@ -21,5 +23,5 @@ public abstract class ToolButton extends JButton {
 		setText(_name);
 	}
 
-	public abstract void push();
+	public abstract void push(Grid grid);
 }
