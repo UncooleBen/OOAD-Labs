@@ -1,5 +1,7 @@
 package com.uncooleben.lab03_gizmoball.gui.button.toolbutton;
 
+import com.uncooleben.lab03_gizmoball.gui.section.Grid;
+
 public class ZoomOutButton extends ToolButton {
 
 	private static final long serialVersionUID = -6030322944025601011L;
@@ -9,8 +11,8 @@ public class ZoomOutButton extends ToolButton {
 	}
 
 	@Override
-	public void push() {
-
+	public void push(Grid grid) {
+		grid.zoomOutSelectedComponent();
 	}
 
 }
