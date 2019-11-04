@@ -41,8 +41,6 @@ public class MainFrame extends JFrame {
 
 	private final int DEFAULT_WIDTH = 840;
 
-	private final int BAR_WIDTH = 160;
-
 	private final int SCALE = 32;
 
 	private Grid _grid;
@@ -186,7 +184,7 @@ public class MainFrame extends JFrame {
 
 		public void mouseClicked(MouseEvent e) {
 			System.out.printf("clicked at (%d, %d)\n", e.getX(), e.getY());
-			System.out.println("toggle btn " + _currentlyPressed.getText());
+			System.out.println("Component button: " + _currentlyPressed.getText());
 			if (_currentlyPressed != _selectButton) {
 				_grid.removeSelect();
 				int x = e.getX() / SCALE;

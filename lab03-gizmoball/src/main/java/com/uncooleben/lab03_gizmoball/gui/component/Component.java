@@ -13,7 +13,7 @@ public abstract class Component {
 
 	protected final int SCALE = 32;
 
-	private int _direction = 3;
+	private int _direction = 0;
 
 	public Component(String type, int x, int y) {
 		super();
@@ -74,5 +74,7 @@ public abstract class Component {
 	}
 
 	public abstract List<Shape> get_shapes();
+
+	public abstract List<int[]> get_occupied();
 
 }

@@ -37,4 +37,40 @@ public class Triangle extends Component {
 		return shapes;
 	}
 
+	@Override
+	public List<int[]> get_occupied() {
+		List<int[]> result = new ArrayList<int[]>();
+		switch (get_direction()) {
+		case 0:
+			for (int y = get_y(); y < get_y() + get_size(); y++) {
+				for (int x = get_x(); x < get_x() + y - get_y() + 1; x++) {
+					result.add(new int[] { x, y });
+				}
+			}
+			break;
+		case 1:
+			for (int y = get_y(); y < get_y() + get_size(); y++) {
+				for (int x = get_x(); x < get_x() + get_size() - y + get_y(); x++) {
+					result.add(new int[] { x, y });
+				}
+			}
+			break;
+		case 2:
+			for (int y = get_y(); y < get_y() + get_size(); y++) {
+				for (int x = y - get_y() + get_x(); x < get_x() + get_size(); x++) {
+					result.add(new int[] { x, y });
+				}
+			}
+			break;
+		case 3:
+			for (int y = get_y(); y < get_y() + get_size(); y++) {
+				for (int x = get_x() + get_size() - y + get_y() - 1; x < get_x() + get_size(); x++) {
+					result.add(new int[] { x, y });
+				}
+			}
+			break;
+		}
+		return result;
+	}
+
 }
