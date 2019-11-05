@@ -50,6 +50,8 @@ public class MainFrame extends JFrame {
 
 	private final int SCALE = 32;
 
+	private boolean _layoutMode = true;
+
 	private Grid _grid;
 
 	private ComponentBar _componentBar;
@@ -159,6 +161,10 @@ public class MainFrame extends JFrame {
 
 		_export.addActionListener(new ExportMenuItemListener());
 
+		_layoutButton.addActionListener(new LayoutButtonListener());
+
+		_playButton.addActionListener(new PlayButtonListener());
+
 	}
 
 	private class ComponentButtonListener implements ActionListener {
@@ -220,6 +226,31 @@ public class MainFrame extends JFrame {
 			if (return_value == JFileChooser.APPROVE_OPTION) {
 				MapParser.save(_grid.get_components(), chooser.getSelectedFile().getPath());
 			}
+		}
+
+	}
+
+	private class LayoutButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			_layoutMode = true;
+			_componentBar.enableButtons();
+			_toolBar.enableButtons();
+
+		}
+
+	}
+
+	private class PlayButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			_layoutMode = false;
+			_componentBar.disableButtons();
+			_toolBar.disableButtons();
+			_playButton.setEnabled(false);
+			// TODO: Game running code here
 		}
 
 	}

@@ -61,4 +61,18 @@ public class ToolBar extends JPanel {
 		add(_zoomOutButton, c);
 	}
 
+	public void disableButtons() {
+		this._deleteButton.setEnabled(false);
+		this._rotateButton.setEnabled(false);
+		this._zoomInButton.setEnabled(false);
+		this._zoomOutButton.setEnabled(false);
+	}
+
+	public void enableButtons() {
+		this._deleteButton.setEnabled(true);
+		this._rotateButton.setEnabled(true);
+		this._zoomInButton.setEnabled(true);
+		this._zoomOutButton.setEnabled(true);
+	}
+
 }

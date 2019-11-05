@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import com.uncooleben.lab03_gizmoball.gui.component.Absorb;
+import com.uncooleben.lab03_gizmoball.gui.component.Ball;
 import com.uncooleben.lab03_gizmoball.gui.component.Circle;
 import com.uncooleben.lab03_gizmoball.gui.component.Component;
 import com.uncooleben.lab03_gizmoball.gui.component.Generate;
@@ -51,6 +52,8 @@ public class Grid extends JPanel {
 	private Generate _generate = null;
 
 	private Absorb _absorb = null;
+
+	private Ball _ball = null;
 
 	private Component _selectedComponent = null;
 
@@ -253,6 +256,13 @@ public class Grid extends JPanel {
 			graphics2d.setColor(Color.RED);
 			for (Shape s : _select.get_shapes()) {
 				graphics2d.draw(s);
+			}
+		}
+		// Draw ball
+		if (_ball != null) {
+			for (Shape s : _ball.get_shapes()) {
+				graphics2d.draw(s);
+				graphics2d.fill(s);
 			}
 		}
 

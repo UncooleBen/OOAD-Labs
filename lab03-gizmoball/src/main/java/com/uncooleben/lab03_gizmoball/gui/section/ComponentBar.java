@@ -106,4 +106,26 @@ public class ComponentBar extends JPanel {
 		add(_bendedRailButton, c);
 	}
 
+	public void disableButtons() {
+		this._selectButton.setEnabled(false);
+		this._generateButton.setEnabled(false);
+		this._absorbButton.setEnabled(false);
+		this._squareButton.setEnabled(false);
+		this._triangleButton.setEnabled(false);
+		this._circleButtion.setEnabled(false);
+		this._straightRailButton.setEnabled(false);
+		this._bendedRailButton.setEnabled(false);
+	}
+
+	public void enableButtons() {
+		this._selectButton.setEnabled(true);
+		this._generateButton.setEnabled(true);
+		this._absorbButton.setEnabled(true);
+		this._squareButton.setEnabled(true);
+		this._triangleButton.setEnabled(true);
+		this._circleButtion.setEnabled(true);
+		this._straightRailButton.setEnabled(true);
+		this._bendedRailButton.setEnabled(true);
+	}
+
 }
