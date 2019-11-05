@@ -55,12 +55,7 @@ public class Grid extends JPanel {
 	private Component _selectedComponent = null;
 
 	public Grid() {
-		for (int index = 0; index < NUMBER; index++) {
-			_occupied[index] = new boolean[NUMBER];
-			for (int subIndex = 0; subIndex < NUMBER; subIndex++) {
-				_occupied[index][subIndex] = false;
-			}
-		}
+		clearFields();
 		setBackground(Color.BLACK);
 		setPreferredSize(new Dimension(GRID_WIDTH, GRID_HEIGHT));
 	}
@@ -201,7 +196,31 @@ public class Grid extends JPanel {
 		return false;
 	}
 
-	// public void importFromXML()
+	public void reloadFromXML(List<Component> components) {
+		clearFields();
+		_components.removeIf((c) -> true);
+		for (Component component : components) {
+			System.out.println(component.get_type());
+			addComponent(component);
+		}
+	}
+
+	private void clearFields() {
+		for (int index = 0; index < NUMBER; index++) {
+			_occupied[index] = new boolean[NUMBER];
+			for (int subIndex = 0; subIndex < NUMBER; subIndex++) {
+				_occupied[index][subIndex] = false;
+			}
+		}
+		_select = null;
+		_generate = null;
+		_absorb = null;
+		_selectedComponent = null;
+	}
+
+	public List<Component> get_components() {
+		return _components;
+	}
 
 	@Override
 	protected void paintComponent(Graphics graphics) {

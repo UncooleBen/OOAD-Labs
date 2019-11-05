@@ -26,10 +26,6 @@ public abstract class Component {
 		return _type;
 	}
 
-	public void set_type(String _type) {
-		this._type = _type;
-	}
-
 	public int get_x() {
 		return _x;
 	}
@@ -63,6 +59,10 @@ public abstract class Component {
 		if (_size <= 0) {
 			_size = 1;
 		}
+	}
+
+	public void set_direction(int direction) {
+		_direction = direction;
 	}
 
 	public int get_direction() {
