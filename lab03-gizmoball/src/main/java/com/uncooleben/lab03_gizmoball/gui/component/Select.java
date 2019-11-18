@@ -22,4 +22,10 @@ public class Select extends Component {
 		return shapes;
 	}
 
+	@Override
+	public List<int[]> get_occupied() {
+		List<int[]> result = new ArrayList<int[]>();
+		return result;
+	}
+
 }

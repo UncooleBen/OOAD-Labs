@@ -9,11 +9,11 @@ import javax.swing.KeyStroke;
 public class Import extends JMenuItem {
 
 	private static final long serialVersionUID = 7223183419112597545L;
-	
+
 	private static final String NAME = "Import";
-	
+
 	public Import() {
-		super(NAME, KeyEvent.VK_T);
+		super(NAME, KeyEvent.VK_I);
 		setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1, ActionEvent.ALT_MASK));
 	}
 

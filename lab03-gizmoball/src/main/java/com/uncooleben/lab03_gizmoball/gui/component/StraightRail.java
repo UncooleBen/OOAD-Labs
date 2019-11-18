@@ -14,6 +14,16 @@ public class StraightRail extends Component {
 	}
 
 	@Override
+	public void zoom_in() {
+
+	}
+
+	@Override
+	public void zoom_out() {
+
+	}
+
+	@Override
 	public List<Shape> get_shapes() {
 		List<Shape> shapes = new ArrayList<Shape>();
 		int x = get_x() * SCALE;
@@ -28,6 +38,13 @@ public class StraightRail extends Component {
 		shapes.add(line1);
 		shapes.add(line2);
 		return shapes;
+	}
+
+	@Override
+	public List<int[]> get_occupied() {
+		List<int[]> result = new ArrayList<int[]>();
+		result.add(new int[] { get_x(), get_y() });
+		return result;
 	}
 
 }

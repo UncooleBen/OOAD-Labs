@@ -1,0 +1,7 @@
+<gizmoball-map>
+	<component type="CIRCLE" x="5" y="4" size="4" direction="0" />
+	<component type="TRIANGLE" x="14" y="4" size="3" direction="0" />
+	<component type="TRIANGLE" x="11" y="4" size="3" direction="3" />
+	<component type="TRIANGLE" x="11" y="7" size="3" direction="2" />
+	<component type="TRIANGLE" x="14" y="7" size="3" direction="1" />
+</gizmoball-map>

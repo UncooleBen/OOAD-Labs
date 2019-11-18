@@ -13,7 +13,7 @@ public abstract class Component {
 
 	protected final int SCALE = 32;
 
-	private int _direction = 3;
+	private int _direction = 0;
 
 	public Component(String type, int x, int y) {
 		super();
@@ -24,10 +24,6 @@ public abstract class Component {
 
 	public String get_type() {
 		return _type;
-	}
-
-	public void set_type(String _type) {
-		this._type = _type;
 	}
 
 	public int get_x() {
@@ -65,6 +61,10 @@ public abstract class Component {
 		}
 	}
 
+	public void set_direction(int direction) {
+		_direction = direction;
+	}
+
 	public int get_direction() {
 		return _direction;
 	}
@@ -74,5 +74,7 @@ public abstract class Component {
 	}
 
 	public abstract List<Shape> get_shapes();
+
+	public abstract List<int[]> get_occupied();
 
 }
